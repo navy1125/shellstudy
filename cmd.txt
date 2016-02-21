@@ -1,0 +1,1 @@
+dos2unix $(find . -name "*.cpp" -exec grep -Pl "\r" {} \;)
