@@ -1,0 +1,26 @@
+1.内网得能无密码访问跳板机
+ssh-copy-id root@123.123.123.123
+2.启动
+autossh -M 5678 -CNR 8081:0.0.0.0:22 root@115.62.62.62
+autossh -M 9999 -fCNR  49.232.84.214:8888:localhost:22 -fCNR 49.232.84.214:8929:localhost:8929 root@49.232.84.214 #支持多个
+3.重启自动启动
+vim /etc/rc.local
+autossh -M 5678 -CNR 8081:0.0.0.0:22 root@115.62.62.62
+
+3.跳板机
+vim /etc/ssh/sshd_config
+GatewayPorts yes
+TCPKeepAlive yes
+ClientAliveInterval 60
+ClientAliveCountMax 3
+
+sudo service sshd restart
+
+ssh -fCNL *:1234:localhost:8081 localhost
+
+
+4.用户访问
+ssh -p 1234 root@115.62.62.62
+
+
+妥了
